@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+        }
+
+        .container {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 80%;
+            max-width: 800px; /* Adjust max-width as needed */
+            flex-direction: column; /* Stack vertically on small screens */
+        }
+
+        .login-form {
+            padding: 20px;
+            width: 90%;
+        }
+
+        .logo {
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center; 
+            margin-right: -10px;
+        }
+
+        .logo img {
+            width: 80px; /* Adjust the size of the logo */
+            height: 80px; /* Adjust the size of the logo */
+            margin-right: 10px; /* Space between the logo and the text */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 90%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .login-button {
+            width: 95%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #0056b3;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .register-link {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .image-container {
+            display: none; /* Hide image on small screens */
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row; /* Side by side on larger screens */
+            }
+
+            .login-form {
+                padding: 40px;
+                width: 50%;
+            }
+
+            .logo {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .logo img {
+                width: 50px; /* Adjust the size of the logo for larger screens */
+                height: 50px; /* Adjust the size of the logo for larger screens */
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                font-size: 16px;
+            }
+
+            .form-group input {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .image-container {
+                display: block; /* Show image on larger screens */
+                width: 70%;
+                background-image: url('image.png'); /* Replace with your image path */
+                background-size: cover;
+                background-position: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-form {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .logo img {
+                width: 60px; /* Adjust the size of the logo for smaller screens */
+                height: 60px; /* Adjust the size of the logo for smaller screens */
+            }
+
+            .form-group label {
+                font-size: 12px;
+            }
+
+            .form-group input {
+                padding: 6px;
+                font-size: 12px;
+            }
+
+            .login-button {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .forgot-password {
+                font-size: 12px;
+            }
+
+            .register-link {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+            <div class="logo">
+                <img src="logo.png" alt="Logo"> 
+                <span>Login</span>
+            </div>
+            <form method="POST" enctype="multipart/form-data" target="_self" name="Myform2" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-button">LOGIN</button>
+                <a href="#" class="forgot-password">Forgot password?</a>
+                <div class="register-link">
+                    Don't have an account? <a href="practise3.html">Register here</a>
+                </div>
+            </form>
+        </div>
+        <div class="image-container"></div>
+    </div>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent the default submission
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            // Password validation
+            const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[a-z\d@$!%*?&]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert("Invalid password! Must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.");
+                return false;
+            }
+
+            // If validation passes, show success alert and redirect
+            alert("Login Successful!");
+            window.location.href = "Practise3-2.html"; // Redirect to the new page
+            return true;
+        }
+    </script>
+</body>
+</html>

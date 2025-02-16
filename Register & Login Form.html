@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        /* Container for Form and Image */
+        .container {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            height: 90vh; /* Adjust height to fit within viewport */
+            width: 70%; /* Adjust width to fit within viewport */
+            max-width: 1200px; /* Adjust max-width as needed */
+            flex-direction: row; /* Stack vertically on small screens */
+        }
+
+        /* Image Container */
+        .image-container {
+            display: none; /* Hide image on small screens */
+            width: 40%; /* Adjust width as needed */
+            background-image: url('digital-art-style-light-lamp-design (1).jpg'); /* Replace with your image path */
+            background-size: cover; /* Fit the image height-wise and crop sides if necessary */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+        }
+
+        /* Form Container */
+        .form-container {
+            padding: 20px;
+            width: 100%;
+            overflow-y: auto; /* Allow scrolling within the form if necessary */
+        }
+
+        /* Logo and Registration Heading */
+        .registration-heading {
+            display: flex;
+            align-items: center; /* Align logo and text vertically */
+            margin-bottom: 20px;
+        }
+
+        .registration-heading img {
+            width: 40px; /* Adjust the size of the logo */
+            height: 40px; /* Adjust the size of the logo */
+            margin-right: 10px; /* Space between the logo and the text */
+        }
+
+        .registration-heading span {
+            font-size: 24px; /* Adjust the font size as needed */
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Form Styling */
+        #forms {
+            width: 100%;
+        }
+
+        /* Flexbox for First Name and Last Name */
+        .name-container {
+            display: flex;
+            gap: 10px; /* Space between First Name and Last Name */
+        }
+
+        .name-container input {
+            flex: 5; /* Equal width for both inputs */
+            width: 262.5px;
+        }
+
+        /* City, State/Province, and ZIP Code */
+        .city-state-zip-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping */
+            gap: 10px;
+        }
+
+        .city-state-zip-container > div {
+            flex: 1; /* Equal width for city and state */
+        }
+
+        .city-state-zip-container > div:last-child {
+            flex-basis: 100%; /* Full width for ZIP code */
+            margin-top: 10px; /* Add space above ZIP code */
+        }
+
+/* Phone Number Section */
+.phone-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%; /* Ensure it takes full width */
+}
+
+.phone-container select,
+.phone-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    height: 40px; /* Ensure consistent height */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.phone-container select {
+    width: 100px; /* Fixed width for the country code dropdown */
+}
+
+.phone-container input {
+    flex: 0.95; /* Take remaining space */
+     /* Allow the input to grow */
+}
+
+        /* Input Fields and Labels */
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        form input, form select, form button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Button Styles */
+        form button {
+            width: 96.5%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Fieldset Styling */
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0 0 20px;
+        }
+
+        .register-link {
+            margin-top: 8px;
+            font-size: 15px;
+            color: #555;
+            margin-left: 0%;
+            text-align: left;
+        }
+
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row; /* Side by side on larger screens */
+            }
+
+            .image-container {
+                display: block; /* Show image on larger screens */
+                order: 1; /* Image on the left */
+            }
+
+            .form-container {
+                padding: 40px;
+                width: 60%;
+                order: 2; /* Form on the right */
+            }
+
+            .registration-heading img {
+                width: 50px; /* Adjust the size of the logo for larger screens */
+                height: 50px; /* Adjust the size of the logo for larger screens */
+            }
+
+            .registration-heading span {
+                font-size: 36px; /* Adjust the font size for larger screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .registration-heading img {
+                width: 30px; /* Adjust the size of the logo for smaller screens */
+                height: 30px; /* Adjust the size of the logo for smaller screens */
+            }
+
+            .registration-heading span {
+                font-size: 24px; /* Adjust the font size for smaller screens */
+            }
+
+            /* Stack First Name and Last Name on small screens */
+            .name-container {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            /* Stack City, State/Province, and ZIP Code on small screens */
+            .city-state-zip-container {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .register-link {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Image on the Left Side -->
+        <div class="image-container"></div>
+
+        <!-- Form Section -->
+        <div class="form-container">
+            <form id="forms" method="POST" enctype="multipart/form-data" target="_self" name="Myform" onsubmit="return handleSubmit(event)">
+                <fieldset>
+                    <!-- Logo and Registration Heading -->
+                    <div class="registration-heading">
+                        <img src="logo.png" alt="Logo"> <!-- Replace 'logo.png' with the path to your logo image -->
+                        <span>Registration</span>
+                    </div>
+
+                    <!-- First Name and Last Name on the same line -->
+                    <div class="name-container">
+                        <div>
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Enter first name" required>
+                        </div>
+                        <div>
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Enter last name" required>
+                        </div>
+                    </div>
+
+                    <!-- Email Address -->
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    <br>
+
+                    <!-- Password and Retype Password -->
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Create a password" required autocomplete="off">
+                    <br>
+                    <label for="retypePassword">Retype Password</label>
+                    <input type="password" id="retypePassword" name="retypePassword" placeholder="Retype the password" required autocomplete="off">
+                    <br>
+
+                    <!-- Phone Number Section -->
+                    <label for="phone">Phone Number</label>
+                    <div class="phone-container">
+                        <select id="countryCode" name="countryCode" required>
+                            <option value="+91">+91(IND)</option>
+                            <option value="+1">+1 (USA)</option>
+                            <option value="+44">+44 (UK)</option>
+                        </select>
+                        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter your number" required>
+                    </div>
+
+                    <!-- Street Address -->
+                    <label for="street">Street Address</label>
+                    <input type="text" id="street" name="street" placeholder="Enter your street address" required>
+                    <br>
+
+                    <!-- City, State/Province, and ZIP Code on the same line -->
+                    <div class="city-state-zip-container">
+                        <div>
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" placeholder="Enter your city" required>
+                        </div>
+                        <div>
+                            <label for="state">State/Province</label>
+                            <input type="text" id="state" name="state" placeholder="Enter your state " required>
+                        </div>
+                        <div>
+                            <label for="zip">ZIP Code</label>
+                            <input type="text" id="zip" name="zip" placeholder="Enter your ZIP code" required>
+                        </div>
+                    </div>
+                </fieldset>
+                <button type="submit">Register</button>
+                <div class="register-link">
+                  Already Registered? <a href="login.html">Go to Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Retrieve form values
+            const firstName = document.getElementById("firstName").value.trim();
+            const email = document.getElementById("email").value.trim();
+
+            // Validation logic
+            if (firstName === "") {
+                alert("First Name is required.");
+                return false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            // Password validation
+            const password = document.getElementById("password").value.trim();
+            const retypePassword = document.getElementById("retypePassword").value.trim();
+            const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[a-z\d@$!%*?&]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert("Invalid password! Must be at least 8 characters long, Lowercase, a number, and a special character.");
+                return false;
+            }
+            if (password !== retypePassword) {
+                alert("Passwords do not match! Please ensure both password fields are the same.");
+                return false;
+            }
+
+            // Phone validation
+            const countryCode = document.getElementById("countryCode").value.trim();
+            const phoneNumber = document.getElementById("phoneNumber").value.trim();
+            const phoneRegex = /^[0-9]{0,10}$/;
+            if (countryCode === "" || !phoneRegex.test(phoneNumber)) {
+                alert("Invalid phone number! Please select a valid country code and enter a valid number.");
+                return false;
+            }
+
+            // Address validation
+            const street = document.getElementById("street").value.trim();
+            const city = document.getElementById("city").value.trim();
+            const state = document.getElementById("state").value.trim();
+            const zip = document.getElementById("zip").value.trim();
+            const zipRegex = /^[0-9]{5,10}$/;
+
+            if (street.length < 5) {
+                alert("Street address must be at least 5 characters long.");
+                return false;
+            }
+            if (city.length < 2) {
+                alert("City name must be at least 2 characters long.");
+                return false;
+            }
+            if (state.length < 2) {
+                alert("State/Province name must be at least 2 characters long.");
+                return false;
+            }
+            if (!zipRegex.test(zip)) {
+                alert("Invalid ZIP code! Must be between 5 and 10 numeric digits.");
+                return false;
+            }
+
+             // If validation passes, show a success alert
+        alert("Registration successful! You will now be redirected to the login page.");
+
+// Redirect to the login page after the alert
+window.location.href = "login.html"; // Replace with your desired URL
+return true;
+        }
+    </script>
+</body>
+</html>

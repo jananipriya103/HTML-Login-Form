@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Centering the form on the page */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height of the viewport */
+        }
+
+        /* General form styling */
+        form[name="Myform2"] {
+            background-color: #fff; /* White background for form */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            width: 400px; /* Fixed width for form */
+            transition: background-color 0.5s ease; /* Smooth background color transition */
+        }
+
+        /* Align inputs (radio buttons and checkboxes) and labels on the same line */
+        form[name="Myform2"] .preference-container1 label {
+            display: flex;
+            align-items: center; /* Align input and label vertically in the center */
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px; /* Space between options */
+        }
+
+        /* Ensure no extra margins for inputs */
+        form[name="Myform2"] .preference-container1 input[type="radio"] {
+            margin-right: 10px; /* Space between radio and label */
+        }
+
+        /* Optional: Add padding to fieldset for better spacing */
+        form[name="Myform2"] fieldset {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Dropdown styling */
+        form[name="Myform2"] select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        form[name="Myform2"] select:focus {
+            border-color: #007bff;
+            outline: none; /* Remove outline on focus */
+        }
+
+        /* Button styling */
+        form[name="Myform2"] button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%; /* Full width button */
+            transition: background-color 0.3s, transform 0.3s; /* Add transition */
+            margin-bottom: 10px; /* Space between buttons */
+        }
+
+        form[name="Myform2"] button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px); /* Lift effect */
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it's on top */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease-in-out; /* Fade-in animation */
+        }
+
+        .modal-content p {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            form[name="Myform2"] {
+                width: 90%; /* Full width on small screens */
+            }
+
+            .modal-content {
+                width: 90%; /* Full width on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data" target="_self" name="Myform2">
+            <fieldset id="Preferences">
+                <legend>Emotion Selection</legend>
+
+                <!-- Dropdown: Choose an Emotion -->
+                <label for="choices">How are you feeling today?</label>
+                <select id="choices" name="choices" required>
+                    <option value="">-- Select an emotion --</option>
+                    <option value="happy">Happy 😊</option>
+                    <option value="sad">Sad 😢</option>
+                    <option value="angry">Angry 😠</option>
+                </select>
+
+                <!-- Radio Buttons: Choose an Intensity -->
+                <div class="preference-container1">
+                    <legend>How intense is this feeling?</legend>
+                    <label>
+                        <input type="radio" name="category" value="mild" id="r1" required>
+                        Mild 🌱
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="moderate" id="r2">
+                        Moderate 🌟
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="intense" id="r3">
+                        Intense 🔥
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <button type="button" onclick="validateAndSubmit()">Submit</button>
+        </form>
+    </div>
+
+    <!-- Modal for Custom Message -->
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <p id="modal-message"></p>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to generate the custom message based on selections
+        function generateMessage(selectedEmotion, selectedIntensity) {
+            let message = "";
+            let backgroundColor = "#fff"; // Default background color
+
+            if (selectedEmotion === "happy" && selectedIntensity === "mild") {
+                message = "You're feeling mildly happy. Keep smiling! 😊";
+                backgroundColor = "#e6f7ff"; // Light blue background
+            } else if (selectedEmotion === "happy" && selectedIntensity === "moderate") {
+                message = "You're feeling moderately happy. Spread the joy! 🌟";
+                backgroundColor = "#f0ffe6"; // Light green background
+            } else if (selectedEmotion === "happy" && selectedIntensity === "intense") {
+                message = "You're feeling intensely happy. Celebrate the moment! 🎉";
+                backgroundColor = "#fff3e6"; // Light orange background
+            } else if (selectedEmotion === "sad" && selectedIntensity === "mild") {
+                message = "You're feeling mildly sad. It's okay to feel this way. 🌱";
+                backgroundColor = "#e6f7ff"; // Light blue background
+            } else if (selectedEmotion === "sad" && selectedIntensity === "moderate") {
+                message = "You're feeling moderately sad. Take a deep breath. 🌟";
+                backgroundColor = "#f0ffe6"; // Light green background
+            } else if (selectedEmotion === "sad" && selectedIntensity === "intense") {
+                message = "You're feeling intensely sad. Reach out to someone. 🔥";
+                backgroundColor = "#fff3e6"; // Light orange background
+            } else if (selectedEmotion === "angry" && selectedIntensity === "mild") {
+                message = "You're feeling mildly angry. Take a moment to relax. 🌱";
+                backgroundColor = "#e6f7ff"; // Light blue background
+            } else if (selectedEmotion === "angry" && selectedIntensity === "moderate") {
+                message = "You're feeling moderately angry. Try to calm down. 🌟";
+                backgroundColor = "#f0ffe6"; // Light green background
+            } else if (selectedEmotion === "angry" && selectedIntensity === "intense") {
+                message = "You're feeling intensely angry. Take a break and breathe. 🔥";
+                backgroundColor = "#fff3e6"; // Light orange background
+            } else {
+                message = "Thanks for sharing your emotions!";
+            }
+
+            return { message, backgroundColor };
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById("custom-modal");
+            modal.style.display = "none";
+        }
+
+        // Function to show the modal with the custom message
+        function showModal(selectedEmotion, selectedIntensity) {
+            const { message, backgroundColor } = generateMessage(selectedEmotion, selectedIntensity);
+
+            // Display the custom message in the modal
+            const modalMessage = document.getElementById("modal-message");
+            modalMessage.innerHTML = message; // Use innerHTML to render line breaks
+
+            // Show the modal
+            const modal = document.getElementById("custom-modal");
+            modal.style.display = "flex";
+
+            // Change the form background color
+            const form = document.forms["Myform2"];
+            form.style.backgroundColor = backgroundColor;
+        }
+
+        // Add event listeners to dropdown and radio buttons
+        document.getElementById("choices").addEventListener("change", () => {
+            const selectedEmotion = document.getElementById("choices").value;
+            const selectedIntensity = document.querySelector('input[name="category"]:checked')?.value;
+
+            if (selectedEmotion && selectedIntensity) {
+                showModal(selectedEmotion, selectedIntensity);
+            }
+        });
+
+        document.querySelectorAll('input[name="category"]').forEach((radio) => {
+            radio.addEventListener("change", () => {
+                const selectedEmotion = document.getElementById("choices").value;
+                const selectedIntensity = document.querySelector('input[name="category"]:checked')?.value;
+
+                if (selectedEmotion && selectedIntensity) {
+                    showModal(selectedEmotion, selectedIntensity);
+                }
+            });
+        });
+
+        // Function to validate and submit
+        function validateAndSubmit() {
+            const selectedEmotion = document.getElementById("choices").value;
+            const selectedIntensity = document.querySelector('input[name="category"]:checked')?.value;
+
+            // Validate if both emotion and intensity are selected
+            if (!selectedEmotion || !selectedIntensity) {
+                alert("Please select an emotion and its intensity.");
+                return;
+            }
+
+            // If validation passes, redirect to the next page
+            window.location.href = "practise3-3.html";
+        }
+    </script>
+</body>
+</html>
